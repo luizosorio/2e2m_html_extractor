@@ -28,4 +28,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN playwright install && playwright install-deps
 
 COPY 2e2m .
+
+RUN chmod +x /app/the_x.sh
 CMD ["bash", "-c", "/app/the_x.sh && uvicorn html_extractor:app --host 0.0.0.0 --port 8000"]
