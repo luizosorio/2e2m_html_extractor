@@ -1,0 +1,4 @@
+nest_asyncio
+fastapi
+uvicorn
+playwright

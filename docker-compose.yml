@@ -1,0 +1,8 @@
+services:
+  html_extractor:
+    build:
+      context: .
+    environment:
+      - BEARER_TOKENS=token123,token456
+    ports:
+      - "8000:8000"
