@@ -1,4 +1,4 @@
-# Hotel ID Extractor API
+# HTML Extractor API
 
 This FastAPI application fetches the full HTML content of a given URL using a headless Chromium browser (via Playwright). It is designed to run as a standalone API service and can be used for tasks such as extracting hotel data or any other web content.
 

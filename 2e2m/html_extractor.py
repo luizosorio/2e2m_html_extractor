@@ -109,3 +109,7 @@ async def fetch_html(url: str, credentials: HTTPAuthorizationCredentials = Depen
     except Exception as e:
         logging.error(f"Error processing URL {url}: {e}")
         raise HTTPException(status_code=500, detail=f"Error processing URL: {e}")
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
