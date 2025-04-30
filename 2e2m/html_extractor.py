@@ -93,16 +93,29 @@ async def fetch_html(url: str, credentials: HTTPAuthorizationCredentials = Depen
                 else:
                     route.continue_()
 
+            network_requests = []
+            visited_urls = []
+
             page.on('response', handle_response)
             page.on('route', handle_route)
+            page.on("framenavigated", lambda frame: visited_urls.append(frame.url))
+            page.on("request", lambda request: network_requests.append(request.url))
 
             try:
                 logging.info(f"Navigating to URL: {url}")
                 await page.goto(url, wait_until="networkidle")
                 content = await page.content()
                 final_url = page.url
+
                 logging.info(f"Successfully fetched HTML for URL: {final_url}")
-                return {"url": final_url, "html": content}
+
+                return {
+                    "url": final_url,
+                    "requests": network_requests,
+                    "frames": visited_urls,
+                    "html": content
+                }
+
             finally:
                 logging.info("Closing the page...")
                 await page.close()
