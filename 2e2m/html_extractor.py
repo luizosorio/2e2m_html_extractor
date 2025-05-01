@@ -2,7 +2,7 @@ import logging
 import os
 
 from fastapi import Depends
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from playwright.async_api import async_playwright, Browser
 
@@ -56,10 +56,12 @@ async def shutdown_event():
 
 
 @app.get("/fetch-html/")
-async def fetch_html(url: str, credentials: HTTPAuthorizationCredentials = Depends(verify_token)):
+async def fetch_html(url: str, request: Request, credentials: HTTPAuthorizationCredentials = Depends(verify_token)):
     """
     Fetch the HTML content of a given URL.
     """
+    print("Received Headers:", request.headers)
+
     global browser
     logging.info(f"Received request to fetch HTML for URL: {url}")
 
