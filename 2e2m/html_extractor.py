@@ -19,6 +19,8 @@ ALLOWED_TOKENS = set(os.getenv("BEARER_TOKENS", "").split(","))
 
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     token = credentials.credentials
+    print(f"Received Token: {token}")
+    print(f"ALLOWED_TOKENS: {ALLOWED_TOKENS}")
     if token not in ALLOWED_TOKENS:
         raise HTTPException(status_code=403, detail="Invalid or missing token")
 
